@@ -3,7 +3,7 @@ name: dotnet
 on:
   push:
     branches:
-      - '*'
+      - '**'
 
 jobs:
   test:
