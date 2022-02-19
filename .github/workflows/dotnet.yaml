@@ -5,9 +5,19 @@ on:
     branches:
       - '**'
 
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches: [ main ]
+
+  workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request'
+
     strategy:
       matrix:
         dotnet: [ '6.0.x' ]
@@ -70,6 +80,11 @@ jobs:
           echo "UncommittedChanges: ${{ steps.version.outputs.uncommittedChanges }}"
           echo "CommitDate: ${{ steps.version.outputs.commitDate }}"
 
-      - run: dotnet build
+      - run: dotnet restore
 
-      - run: dotnet test
+      - run: dotnet build --no-restore --configuration Release
+
+      - run: dotnet test --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+      - name: Upload Coverage to Codecov;
+        uses: codecov/codecov-action@v2
