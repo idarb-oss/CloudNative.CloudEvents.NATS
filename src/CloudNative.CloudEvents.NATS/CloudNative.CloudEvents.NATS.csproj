@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <LangVersion>default</LangVersion>
+        <PackageVersion>0.1.0</PackageVersion>
+        
+        <Description>NATS extension for CloudNative.CloudEvents</Description>
+        <PackageTags>CloudNative;CloudEvents;NATS</PackageTags>
+        <Authors>Idar Bergli</Authors>
+        <RepositoryUrl>https://github.com/idarb-oss/CloudNative.CloudEvents.NATS</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CloudNative.CloudEvents" Version="2.2.0" />
+      <PackageReference Include="NATS.Client" Version="0.14.5" />
+    </ItemGroup>
+
+</Project>

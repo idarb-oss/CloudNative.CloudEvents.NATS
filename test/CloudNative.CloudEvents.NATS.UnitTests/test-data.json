@@ -1,0 +1,20 @@
+{
+  "specversion": "1.0",
+  "id": "id",
+  "type": "store.order",
+  "source": "https://ce",
+  "data": {
+    "orderId": "529e86a4-9bbf-4260-85a1-dfc093947b0d",
+    "total": 800,
+    "items": [
+      {
+        "sku": "prod-476",
+        "price": 750
+      },
+      {
+        "sku": "prod-500",
+        "price": 50
+      }
+    ]
+  }
+}

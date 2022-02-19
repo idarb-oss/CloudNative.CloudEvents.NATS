@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C8708E89-4DA1-413F-9B0B-2D6BEA13E362}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E73C76AF-C5BE-4EDA-90A2-7882DFC96DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNative.CloudEvents.NATS", "src\CloudNative.CloudEvents.NATS\CloudNative.CloudEvents.NATS.csproj", "{7AC010F5-120C-4C26-86DC-80135B9F7E12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNative.CloudEvents.NATS.UnitTests", "test\CloudNative.CloudEvents.NATS.UnitTests\CloudNative.CloudEvents.NATS.UnitTests.csproj", "{B018FDBD-C957-49FE-A04A-9DD045690ADC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7AC010F5-120C-4C26-86DC-80135B9F7E12} = {C8708E89-4DA1-413F-9B0B-2D6BEA13E362}
+		{B018FDBD-C957-49FE-A04A-9DD045690ADC} = {E73C76AF-C5BE-4EDA-90A2-7882DFC96DA2}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AC010F5-120C-4C26-86DC-80135B9F7E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC010F5-120C-4C26-86DC-80135B9F7E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC010F5-120C-4C26-86DC-80135B9F7E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC010F5-120C-4C26-86DC-80135B9F7E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B018FDBD-C957-49FE-A04A-9DD045690ADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B018FDBD-C957-49FE-A04A-9DD045690ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B018FDBD-C957-49FE-A04A-9DD045690ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B018FDBD-C957-49FE-A04A-9DD045690ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
