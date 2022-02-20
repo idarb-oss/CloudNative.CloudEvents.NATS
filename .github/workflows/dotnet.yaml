@@ -85,7 +85,6 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
-          #source-url: https://nuget.pkg.github.com/idarboss/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
@@ -127,4 +126,4 @@ jobs:
         run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}-preview${{ needs.test.outputs.CommitsSinceVersionSourcePadded }}
 
       - name: Publish the package to GPR
-        run: dotnet nuget push dist/*.nupkg
+        run: dotnet nuget push "dist/*.nupkg" -s https://api.nuget.org/v3/index.json
