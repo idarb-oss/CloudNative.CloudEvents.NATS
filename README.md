@@ -4,10 +4,6 @@
 [![codecov][codecov-shield]][codecov-url]
 [![release][release-shield]][release-url]
 [![pre-release][pre-release-shield]][release-url]
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 <!--[![LinkedIn][linkedin-shield]][linkedin-url]-->
@@ -193,11 +189,6 @@ Project Link: [https://github.com/idarb-oss/CloudNative.CloudEvents.NATS](https:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
-[contributors-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
-[forks-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/network/members
-[stars-shield]: https://img.shields.io/github/stars/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
 [stars-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/stargazers
 [issues-shield]: https://img.shields.io/github/issues/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
 [issues-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/issues
@@ -205,11 +196,12 @@ Project Link: [https://github.com/idarb-oss/CloudNative.CloudEvents.NATS](https:
 [license-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
 [codecov-shield]: https://img.shields.io/codecov/c/github/idarb-oss/CloudNative.CloudEvents.NATS/main?style=for-the-badge&token=1TU3O38DYG
 [codecov-url]: https://codecov.io/gh/idarb-oss/CloudNative.CloudEvents.NATS
-[github-shield]: https://img.shields.io/github/workflow/status/idarb-oss/CloudNative.CloudEvents.NATS/Alinea%20Tenant%20Test%20&%20Release?style=for-the-badge
+[github-shield]: https://img.shields.io/github/workflow/status/idarb-oss/CloudNative.CloudEvents.NATS/dotnet?style=for-the-badge
 [action-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/actions/workflows/dotnet.yaml
 [release-shield]: https://img.shields.io/github/v/release/idarb-oss/CloudNative.CloudEvents.NATS?include_prereleases&style=for-the-badge
 [pre-release-shield]: https://img.shields.io/github/v/release/idarb-oss/CloudNative.CloudEvents.NATS?include_prereleases&label=pre%20release&style=for-the-badge
 [release-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/releases
+
+[product-screenshot]: images/screenshot.png
