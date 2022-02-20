@@ -33,7 +33,7 @@ jobs:
 
     outputs:
       version: "${{ steps.version.outputs.majorMinorPatch }}"
-      commitsSinceVersion: "${{ steps.version.outputs.commitsSinceVersionSourcePadded"
+      commitsSinceVersion: "${{ steps.version.outputs.commitsSinceVersionSourcePadded }}"
       sha: "sha.${{ steps.version.outputs.sha }}"
 
     name: Test dotnet ${{ matrix.dotnet }}
