@@ -90,8 +90,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
       - name: Build
         run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:InformationalVersion=${{ needs.test.outputs.version }}-${{ needs.test.outputs.sha }}
@@ -100,7 +98,7 @@ jobs:
         run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}
 
       - name: Publish
-        run: dotnet nuget push "dist/*.nupkg" -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "dist/*.nupkg" -s https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
   pre-release:
     runs-on: ubuntu-latest
@@ -124,8 +122,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
       - name: Build
         run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ needs.test.outputs.version }}-preview.${{ needs.test.outputs.sha }}
@@ -134,4 +130,4 @@ jobs:
         run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}-preview${{ needs.test.outputs.CommitsSinceVersionSourcePadded }}
 
       - name: Publish
-        run: dotnet nuget push "dist/*.nupkg" -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "dist/*.nupkg" -s https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
