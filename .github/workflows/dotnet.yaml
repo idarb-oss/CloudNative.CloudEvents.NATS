@@ -6,8 +6,17 @@ on:
       - '**'
 
   pull_request:
-    types: [ opened, synchronize, reopened ]
-    branches: [ main ]
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+    branches:
+      - main
+
+  release:
+    types:
+      - published
 
   workflow_dispatch:
 
@@ -22,7 +31,12 @@ jobs:
       matrix:
         dotnet: [ '6.0.x' ]
 
-    name: Dotnet ${{ matrix.dotnet }}
+    outputs:
+      version: "${{ steps.version.outputs.majorMinorPatch }}"
+      commitsSinceVersion: "${{ steps.version.outputs.commitsSinceVersionSourcePadded"
+      sha: "sha.${{ steps.version.outputs.sha }}"
+
+    name: Test dotnet ${{ matrix.dotnet }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -88,3 +102,65 @@ jobs:
 
       - name: Upload Coverage to Codecov;
         uses: codecov/codecov-action@v2
+
+  release:
+    runs-on: ubuntu-latest
+    if: |
+      !github.event.release.prerelease
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        dotnet: [ '6.0.x' ]
+
+    name: Release dotnet ${{ marix.dotnet }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
+          source-url: https://nuget.pkg.github.com/idarboss/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ test.outputs.version }} /p:InformationalVersion=${{ test.outputs.version }}-${{ test.outputs.sha }}
+
+      - name: Create the package
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ test.outputs.version }}
+
+      - name: Publish the package to GPR
+        run: dotnet nuget push dist/*.nupkg
+
+  pre-release:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.release.prerelease
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        dotnet: [ '6.0.x' ]
+
+    name: Release dotnet ${{ marix.dotnet }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
+          source-url: https://nuget.pkg.github.com/idarboss/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ test.outputs.version }}-preview.${{ test.outputs.sha }}
+
+      - name: Create the package
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ test.outputs.version }}-preview${{ test.outputs.CommitsSinceVersionSourcePadded }}
+
+      - name: Publish the package to GPR
+        run: dotnet nuget push dist/*.nupkg
