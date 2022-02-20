@@ -3,16 +3,40 @@ name: dotnet
 on:
   push:
     branches:
-      - '*'
+      - '**'
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+    branches:
+      - main
+
+  release:
+    types:
+      - published
+
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request'
+
     strategy:
       matrix:
-        dotnet: [ '5.1.x', '6.1.x' ]
+        dotnet: [ '6.0.x' ]
 
-    name: Dotnet ${{ matrix.dotnet }}
+    outputs:
+      version: "${{ steps.version.outputs.majorMinorPatch }}"
+      commitsSinceVersion: "${{ steps.version.outputs.commitsSinceVersionSourcePadded }}"
+      sha: "sha.${{ steps.version.outputs.sha }}"
+
+    name: Test dotnet ${{ matrix.dotnet }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,41 +59,75 @@ jobs:
         with:
           useConfigFile: true
 
-      - name: Display GitVersion outputs
-        run: |
-          echo "Major: ${{ steps.gitversion.outputs.major }}"
-          echo "Minor: ${{ steps.gitversion.outputs.minor }}"
-          echo "Patch: ${{ steps.gitversion.outputs.patch }}"
-          echo "PreReleaseTag: ${{ steps.gitversion.outputs.preReleaseTag }}"
-          echo "PreReleaseTagWithDash: ${{ steps.gitversion.outputs.preReleaseTagWithDash }}"
-          echo "PreReleaseLabel: ${{ steps.gitversion.outputs.preReleaseLabel }}"
-          echo "PreReleaseNumber: ${{ steps.gitversion.outputs.preReleaseNumber }}"
-          echo "WeightedPreReleaseNumber: ${{ steps.gitversion.outputs.weightedPreReleaseNumber }}"
-          echo "BuildMetaData: ${{ steps.gitversion.outputs.buildMetaData }}"
-          echo "BuildMetaDataPadded: ${{ steps.gitversion.outputs.buildMetaDataPadded }}"
-          echo "FullBuildMetaData: ${{ steps.gitversion.outputs.fullBuildMetaData }}"
-          echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
-          echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
-          echo "LegacySemVer: ${{ steps.gitversion.outputs.legacySemVer }}"
-          echo "LegacySemVerPadded: ${{ steps.gitversion.outputs.legacySemVerPadded }}"
-          echo "AssemblySemVer: ${{ steps.gitversion.outputs.assemblySemVer }}"
-          echo "AssemblySemFileVer: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
-          echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
-          echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
-          echo "BranchName: ${{ steps.gitversion.outputs.branchName }}"
-          echo "EscapedBranchName: ${{ steps.gitversion.outputs.escapedBranchName }}"
-          echo "Sha: ${{ steps.gitversion.outputs.sha }}"
-          echo "ShortSha: ${{ steps.gitversion.outputs.shortSha }}"
-          echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
-          echo "NuGetVersion: ${{ steps.gitversion.outputs.nuGetVersion }}"
-          echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.nuGetPreReleaseTagV2 }}"
-          echo "NuGetPreReleaseTag: ${{ steps.gitversion.outputs.nuGetPreReleaseTag }}"
-          echo "VersionSourceSha: ${{ steps.gitversion.outputs.versionSourceSha }}"
-          echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
-          echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.commitsSinceVersionSourcePadded }}"
-          echo "UncommittedChanges: ${{ steps.gitversion.outputs.uncommittedChanges }}"
-          echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}"
+      - run: dotnet restore
 
-      - run: dotnet build
+      - run: dotnet build --no-restore --configuration Release
 
-      - run: dotnet test
+      - run: dotnet test --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+      - name: Upload Coverage to Codecov;
+        uses: codecov/codecov-action@v2
+
+  release:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'release' &&
+      !github.event.release.prerelease
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        dotnet: [ '6.0.x' ]
+
+    name: Release
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
+          source-url: https://nuget.pkg.github.com/idarboss/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:InformationalVersion=${{ needs.test.outputs.version }}-${{ needs.test.outputs.sha }}
+
+      - name: Create the package
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}
+
+      - name: Publish the package to GPR
+        run: dotnet nuget push dist/*.nupkg
+
+  pre-release:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'release' &&
+      github.event.release.prerelease
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        dotnet: [ '6.0.x' ]
+
+    name: Pre-Release
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
+          source-url: https://nuget.pkg.github.com/idarboss/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ needs.test.outputs.version }}-preview.${{ needs.test.outputs.sha }}
+
+      - name: Create the package
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}-preview${{ needs.test.outputs.CommitsSinceVersionSourcePadded }}
+
+      - name: Publish the package to GPR
+        run: dotnet nuget push dist/*.nupkg

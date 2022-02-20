@@ -17,23 +17,22 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/idarb-oss/alinea-tenant">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/idarb-oss/CloudNative.CloudEvents.NATS">
+    <!--<img src="images/logo.png" alt="Logo" width="80" height="80">-->
   </a>
 
-<h3 align="center">Alinea Tenant</h3>
+<h3 align="center">CloudNative.CloudEvents.NATS</h3>
 
   <p align="center">
-    Multitenant functionality for Alinea
+    Extensions for <a href="https://cloudevents.io/">CloudEvent</a> for NATS messaging.
     <br />
     <a href="https://alinea.idar-oss.com/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <!--<a href="https://github.com/idarb-oss/alinea-tenant">View Demo</a>-->
+    <!--<a href="https://github.com/idarb-oss/CloudNative.CloudEvents.NATS">View Demo</a>-->
+    <a href="https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/issues">Report Bug</a>
     ·
-    <a href="https://github.com/idarb-oss/alinea-tenant/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/idarb-oss/alinea-tenant/issues">Request Feature</a>
+    <a href="https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/issues">Request Feature</a>
   </p>
 </div>
 
@@ -70,9 +69,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Alinea Tenant is a service implementation extension to give multi tenancy support for the Alinea project. This will give support to split access to diffrent parts depending on the tenant in use.
+CloudNative.CloudEvents.NATS adds extension methods on top of CloudEvent and NATS Msg classes to easily convert between them.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -105,7 +102,7 @@ This is an example of how to list things you need to use the software and how to
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/idarb-oss/alinea-tenant.git
+   git clone https://github.com/idarb-oss/CloudNative.CloudEvents.NATS.git
    ```
 3. Install NPM packages
    ```sh
@@ -139,7 +136,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [] Feature 3
     - [] Nested Feature
 
-See the [open issues](https://github.com/idarb-oss/alinea-tenant/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
  -->
@@ -177,7 +174,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/idarb-oss/alinea-tenant](https://github.com/idarb-oss/alinea-tenant)
+Project Link: [https://github.com/idarb-oss/CloudNative.CloudEvents.NATS](https://github.com/idarb-oss/CloudNative.CloudEvents.NATS)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 -->
@@ -196,23 +193,23 @@ Project Link: [https://github.com/idarb-oss/alinea-tenant](https://github.com/id
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/idarb-oss/alinea-tenant.svg?style=for-the-badge
-[contributors-url]: https://github.com/idarb-oss/alinea-tenant/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/idarb-oss/alinea-tenant.svg?style=for-the-badge
-[forks-url]: https://github.com/idarb-oss/alinea-tenant/network/members
-[stars-shield]: https://img.shields.io/github/stars/idarb-oss/alinea-tenant.svg?style=for-the-badge
-[stars-url]: https://github.com/idarb-oss/alinea-tenant/stargazers
-[issues-shield]: https://img.shields.io/github/issues/idarb-oss/alinea-tenant.svg?style=for-the-badge
-[issues-url]: https://github.com/idarb-oss/alinea-tenant/issues
-[license-shield]: https://img.shields.io/github/license/idarb-oss/alinea-tenant.svg?style=for-the-badge
-[license-url]: https://github.com/idarb-oss/alinea-tenant/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
+[contributors-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
+[forks-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/network/members
+[stars-shield]: https://img.shields.io/github/stars/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
+[stars-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
+[issues-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/issues
+[license-shield]: https://img.shields.io/github/license/idarb-oss/CloudNative.CloudEvents.NATS.svg?style=for-the-badge
+[license-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-[codecov-shield]: https://img.shields.io/codecov/c/github/idarb-oss/alinea-tenant/main?style=for-the-badge&token=1TU3O38DYG
-[codecov-url]: https://codecov.io/gh/idarb-oss/alinea-tenant
-[github-shield]: https://img.shields.io/github/workflow/status/idarb-oss/alinea-tenant/Alinea%20Tenant%20Test%20&%20Release?style=for-the-badge
-[action-url]: https://github.com/idarb-oss/alinea-tenant/actions/workflows/dotnet.yaml
-[release-shield]: https://img.shields.io/github/v/release/idarb-oss/alinea-tenant?include_prereleases&style=for-the-badge
-[pre-release-shield]: https://img.shields.io/github/v/release/idarb-oss/alinea-tenant?include_prereleases&label=pre%20release&style=for-the-badge
-[release-url]: https://github.com/idarb-oss/alinea-tenant/releases
+[codecov-shield]: https://img.shields.io/codecov/c/github/idarb-oss/CloudNative.CloudEvents.NATS/main?style=for-the-badge&token=1TU3O38DYG
+[codecov-url]: https://codecov.io/gh/idarb-oss/CloudNative.CloudEvents.NATS
+[github-shield]: https://img.shields.io/github/workflow/status/idarb-oss/CloudNative.CloudEvents.NATS/Alinea%20Tenant%20Test%20&%20Release?style=for-the-badge
+[action-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/actions/workflows/dotnet.yaml
+[release-shield]: https://img.shields.io/github/v/release/idarb-oss/CloudNative.CloudEvents.NATS?include_prereleases&style=for-the-badge
+[pre-release-shield]: https://img.shields.io/github/v/release/idarb-oss/CloudNative.CloudEvents.NATS?include_prereleases&label=pre%20release&style=for-the-badge
+[release-url]: https://github.com/idarb-oss/CloudNative.CloudEvents.NATS/releases
