@@ -85,7 +85,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }} # SDK Version to use.
-          source-url: https://nuget.pkg.github.com/idarboss/index.json
+          #source-url: https://nuget.pkg.github.com/idarboss/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
