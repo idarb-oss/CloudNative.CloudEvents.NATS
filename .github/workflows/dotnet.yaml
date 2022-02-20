@@ -115,7 +115,7 @@ jobs:
       matrix:
         dotnet: [ '6.0.x' ]
 
-    name: Release dotnet ${{ marix.dotnet }}
+    name: Release
     steps:
       - uses: actions/checkout@v2
 
@@ -126,10 +126,10 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
-      - run: dotnet build --configuration Release /p:VersionPrefix=${{ test.outputs.version }} /p:InformationalVersion=${{ test.outputs.version }}-${{ test.outputs.sha }}
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:InformationalVersion=${{ needs.test.outputs.version }}-${{ needs.test.outputs.sha }}
 
       - name: Create the package
-        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ test.outputs.version }}
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}
 
       - name: Publish the package to GPR
         run: dotnet nuget push dist/*.nupkg
@@ -146,7 +146,7 @@ jobs:
       matrix:
         dotnet: [ '6.0.x' ]
 
-    name: Release dotnet ${{ marix.dotnet }}
+    name: Pre-Release
     steps:
       - uses: actions/checkout@v2
 
@@ -157,10 +157,10 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
-      - run: dotnet build --configuration Release /p:VersionPrefix=${{ test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ test.outputs.version }}-preview.${{ test.outputs.sha }}
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ needs.test.outputs.version }}-preview.${{ test.outputs.sha }}
 
       - name: Create the package
-        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ test.outputs.version }}-preview${{ test.outputs.CommitsSinceVersionSourcePadded }}
+        run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}-preview${{ needs.test.outputs.CommitsSinceVersionSourcePadded }}
 
       - name: Publish the package to GPR
         run: dotnet nuget push dist/*.nupkg
