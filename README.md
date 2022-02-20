@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/idarb-oss/CloudNative.CloudEvents.NATS">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <!--<img src="images/logo.png" alt="Logo" width="80" height="80">-->
   </a>
 
 <h3 align="center">CloudNative.CloudEvents.NATS</h3>
