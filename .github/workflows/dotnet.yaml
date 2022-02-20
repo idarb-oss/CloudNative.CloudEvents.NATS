@@ -59,41 +59,6 @@ jobs:
         with:
           useConfigFile: true
 
-      - name: Display GitVersion outputs
-        run: |
-          echo "Major: ${{ steps.version.outputs.major }}"
-          echo "Minor: ${{ steps.version.outputs.minor }}"
-          echo "Patch: ${{ steps.version.outputs.patch }}"
-          echo "PreReleaseTag: ${{ steps.version.outputs.preReleaseTag }}"
-          echo "PreReleaseTagWithDash: ${{ steps.version.outputs.preReleaseTagWithDash }}"
-          echo "PreReleaseLabel: ${{ steps.version.outputs.preReleaseLabel }}"
-          echo "PreReleaseNumber: ${{ steps.version.outputs.preReleaseNumber }}"
-          echo "WeightedPreReleaseNumber: ${{ steps.version.outputs.weightedPreReleaseNumber }}"
-          echo "BuildMetaData: ${{ steps.version.outputs.buildMetaData }}"
-          echo "BuildMetaDataPadded: ${{ steps.version.outputs.buildMetaDataPadded }}"
-          echo "FullBuildMetaData: ${{ steps.version.outputs.fullBuildMetaData }}"
-          echo "MajorMinorPatch: ${{ steps.version.outputs.majorMinorPatch }}"
-          echo "SemVer: ${{ steps.version.outputs.semVer }}"
-          echo "LegacySemVer: ${{ steps.version.outputs.legacySemVer }}"
-          echo "LegacySemVerPadded: ${{ steps.version.outputs.legacySemVerPadded }}"
-          echo "AssemblySemVer: ${{ steps.version.outputs.assemblySemVer }}"
-          echo "AssemblySemFileVer: ${{ steps.version.outputs.assemblySemFileVer }}"
-          echo "FullSemVer: ${{ steps.version.outputs.fullSemVer }}"
-          echo "InformationalVersion: ${{ steps.version.outputs.informationalVersion }}"
-          echo "BranchName: ${{ steps.version.outputs.branchName }}"
-          echo "EscapedBranchName: ${{ steps.version.outputs.escapedBranchName }}"
-          echo "Sha: ${{ steps.version.outputs.sha }}"
-          echo "ShortSha: ${{ steps.version.outputs.shortSha }}"
-          echo "NuGetVersionV2: ${{ steps.version.outputs.nuGetVersionV2 }}"
-          echo "NuGetVersion: ${{ steps.version.outputs.nuGetVersion }}"
-          echo "NuGetPreReleaseTagV2: ${{ steps.version.outputs.nuGetPreReleaseTagV2 }}"
-          echo "NuGetPreReleaseTag: ${{ steps.version.outputs.nuGetPreReleaseTag }}"
-          echo "VersionSourceSha: ${{ steps.version.outputs.versionSourceSha }}"
-          echo "CommitsSinceVersionSource: ${{ steps.version.outputs.commitsSinceVersionSource }}"
-          echo "CommitsSinceVersionSourcePadded: ${{ steps.version.outputs.commitsSinceVersionSourcePadded }}"
-          echo "UncommittedChanges: ${{ steps.version.outputs.uncommittedChanges }}"
-          echo "CommitDate: ${{ steps.version.outputs.commitDate }}"
-
       - run: dotnet restore
 
       - run: dotnet build --no-restore --configuration Release
@@ -157,7 +122,7 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
-      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ needs.test.outputs.version }}-preview.${{ test.outputs.sha }}
+      - run: dotnet build --configuration Release /p:VersionPrefix=${{ needs.test.outputs.version }} /p:VersionSuffix="preview" /p:InformationalVersion=${{ needs.test.outputs.version }}-preview.${{ needs.test.outputs.sha }}
 
       - name: Create the package
         run: dotnet pack --configuration Release -o dist /p:PackageVersion=${{ needs.test.outputs.version }}-preview${{ needs.test.outputs.CommitsSinceVersionSourcePadded }}
