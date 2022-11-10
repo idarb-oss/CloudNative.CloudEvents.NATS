@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CloudNative.CloudEvents" Version="2.2.0" />
+      <PackageReference Include="CloudNative.CloudEvents" Version="2.5.1" />
       <PackageReference Include="NATS.Client" Version="0.14.5" />
     </ItemGroup>
 
