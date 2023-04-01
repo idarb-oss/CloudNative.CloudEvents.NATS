@@ -26,7 +26,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '6.0.x' ]
+        dotnet: [ '7.0.x' ]
 
     outputs:
       version: "${{ steps.version.outputs.majorMinorPatch }}"
@@ -46,13 +46,13 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+        uses: gittools/actions/gitversion/setup@v0.10.2
         with:
           versionSpec: '5.x'
 
       - name: Get Version
         id: version
-        uses: gittools/actions/gitversion/execute@v0.9.7
+        uses: gittools/actions/gitversion/execute@v0.10.2
         with:
           useConfigFile: true
 
@@ -79,7 +79,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '6.0.x' ]
+        dotnet: [ '7.0.x' ]
 
     name: Release
     steps:
@@ -111,7 +111,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '6.0.x' ]
+        dotnet: [ '7.0.x' ]
 
     name: Pre-Release
     steps:
