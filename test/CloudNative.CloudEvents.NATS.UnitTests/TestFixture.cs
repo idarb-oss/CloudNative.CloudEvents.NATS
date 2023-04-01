@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using NATS.Client;
 using Xunit;
 using System.Text.Json;
@@ -32,15 +30,17 @@ public class TestFixture : IClassFixture<TestFixture>
 
     public Msg CreateNatsMessage()
     {
-        var headers = new MsgHeader();
-        headers.Add("ce-id", "id");
-        headers.Add("ce-source", "https://ce");
-        headers.Add("ce-subject", "subject");
-        headers.Add("ce-time", DateTimeOffset.UtcNow.ToString());
-        headers.Add("ce-type", "store.order");
-        headers.Add("ce-specversion", "1.0");
+        var headers = new MsgHeader
+        {
+            { "ce-id", "id" },
+            { "ce-source", "https://ce" },
+            { "ce-subject", "subject" },
+            { "ce-time", DateTimeOffset.UtcNow.ToString() },
+            { "ce-type", "store.order" },
+            { "ce-specversion", "1.0" }
+        };
 
-        var data = JsonSerializer.SerializeToUtf8Bytes<TestData>(_jsonObj);
+        var data = JsonSerializer.SerializeToUtf8Bytes(_jsonObj);
         return new Msg("subject", headers, data);
     }
 }

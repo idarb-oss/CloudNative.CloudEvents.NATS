@@ -72,12 +72,13 @@ public static class Extensions
         _ = msg ?? throw new ArgumentNullException(nameof(msg));
         _ = formatter ?? throw new ArgumentNullException(nameof(formatter));
         
+        // Structured mode
         if (msg.IsCloudEvent())
         {
             var contentType = new ContentType(msg.Header["content-type"]);
             return formatter.DecodeStructuredModeMessage(msg.Data, contentType, extensionAttributes);
         }
-        else
+        else  // Binary mode
         {
             var headers = msg.HasHeaders ? msg.Header : throw new ArgumentException("NATS message has no headers");
             
