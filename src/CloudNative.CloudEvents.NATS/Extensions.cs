@@ -5,27 +5,51 @@ using NATS.Client;
 
 namespace CloudNative.CloudEvents.NATS;
 
+/// <summary>
+/// Extension methods to convert between CloudEvents and NATS messages.
+/// </summary>
 public static class Extensions
 {
     private const string NatsHeader = "ce-";
     
+    /// <summary>
+    /// Indicates if the message holds an CloudEvent
+    /// </summary>
+    /// <param name="msg">The message to check for CloudEvent</param>
+    /// <returns>true, if the message is an CloudEvent</returns>
     public static bool IsCloudEvent(this Msg msg)
     {
-        return msg.HasHeaders && MimeUtilities.IsCloudEventsContentType((msg.Header["content-type"]));
+        return msg.HasHeaders && MimeUtilities.IsCloudEventsContentType(msg.Header["content-type"]);
     }
 
+    /// <summary>
+    /// Converts the CloudEvent to an NATS message
+    /// </summary>
+    /// <param name="ce">The CloudEvent to convert</param>
+    /// <param name="formatter">The event formatter to use to prase the CloudEvent</param>
+    /// <param name="subject">The NATS subject</param>
+    /// <returns><see cref="Msg"/></returns>
     public static Msg ToNatsMessage(this CloudEvent ce, CloudEventFormatter formatter, string subject)
     {
         return ce.ToNatsMessage(formatter, subject, null);
     }
 
+    /// <summary>
+    /// Converts the CloudEvent to an NATS message
+    /// </summary>
+    /// <param name="ce">The CloudEvent to convert</param>
+    /// <param name="formatter">The event formatter to use to prase the CloudEvent</param>
+    /// <param name="subject">The NATS subject</param>
+    /// <param name="reply">Reply subject for the NATS message</param>
+    /// <returns><see cref="Msg"/></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static Msg ToNatsMessage(this CloudEvent ce, CloudEventFormatter formatter, string subject, string reply)
     {
         _ = ce ?? throw new ArgumentNullException(nameof(ce));
 
         var headers = MapToHeaders(ce);
         
-        var data = formatter.EncodeStructuredModeMessage(ce, out var contentType);
+        var data = formatter.EncodeStructuredModeMessage(ce, out var _);
 
         var msg = reply is null
             ? new Msg(subject, headers, data.ToArray())
@@ -34,6 +58,15 @@ public static class Extensions
         return msg;
     }
 
+    /// <summary>
+    /// Converts the NATS message to an CloudEvent
+    /// </summary>
+    /// <param name="msg">The NATS message to convert</param>
+    /// <param name="formatter">The CloudEvent formatter to use</param>
+    /// <param name="extensionAttributes">Extension attributes</param>
+    /// <returns><see cref="CloudEvent"/></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public static CloudEvent ToCloudEvent(this Msg msg, CloudEventFormatter formatter, IEnumerable<CloudEventAttribute> extensionAttributes)
     {
         _ = msg ?? throw new ArgumentNullException(nameof(msg));
