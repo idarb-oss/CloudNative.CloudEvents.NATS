@@ -26,7 +26,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '7.0.x' ]
+        dotnet: [ '5.0.x', '6.0.x', '7.0.x' ]
 
     outputs:
       version: "${{ steps.version.outputs.majorMinorPatch }}"
@@ -79,7 +79,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '7.0.x' ]
+        dotnet: [ '6.0.x' ]
 
     name: Release
     steps:
@@ -111,7 +111,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '7.0.x' ]
+        dotnet: [ '6.0.x' ]
 
     name: Pre-Release
     steps:
