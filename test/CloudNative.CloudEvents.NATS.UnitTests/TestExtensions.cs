@@ -1,5 +1,4 @@
 using Xunit;
-using NATS.Client;
 using CloudNative.CloudEvents.SystemTextJson;
 using FluentAssertions;
 using FluentAssertions.Common;
