@@ -126,7 +126,7 @@ public static class Extensions
     {
         MsgHeader headers = new() {{"ce-specversion", ce.SpecVersion.VersionId}};
 
-        foreach (var (attribute, value) in ce.GetPopulatedAttributes())
+        foreach (var (attribute, value) in ce.GetPopulatedAttributes().Select(x => (x.Key, x.Value)))
         {
             if (attribute == ce.SpecVersion.DataContentTypeAttribute)
                 continue;
