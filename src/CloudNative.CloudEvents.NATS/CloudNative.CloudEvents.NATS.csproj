@@ -1,26 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
 
         <LangVersion>default</LangVersion>
         <PackageVersion>0.1.0</PackageVersion>
 
+        <Features>strict</Features>
+
+        <Authors>Idar Bergli</Authors>
         <Description>NATS extension for CloudNative.CloudEvents</Description>
         <PackageTags>CloudNative;CloudEvents;NATS</PackageTags>
         <Authors>Idar Bergli</Authors>
         <RepositoryUrl>https://github.com/idarb-oss/CloudNative.CloudEvents.NATS</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="../../README.md" Pack="true" PackagePath="\"/>
+        <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="CloudNative.CloudEvents" Version="2.6.0" />
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
       <PackageReference Include="NATS.Client" Version="1.0.3" />
     </ItemGroup>
 
