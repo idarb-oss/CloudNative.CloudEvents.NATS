@@ -33,7 +33,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
-      <PackageReference Include="NATS.Client" Version="1.0.6" />
+      <PackageReference Include="NATS.Client" Version="1.0.8" />
     </ItemGroup>
 
 </Project>
